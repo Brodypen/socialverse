@@ -1,8 +1,16 @@
 import React from 'react'
 
-const Card = () => {
+type CardProps = {
+  creatorName: string
+  creatorDescription: string
+  creatorURLImage: string
+  creatorURL: string
+}
+
+const Card = ({creatorName, creatorDescription, creatorURL, creatorURLImage}: CardProps) => {
   return (
-    <div>Card</div>
+    <div>{creatorName}</div>
+
   )
 }
 
