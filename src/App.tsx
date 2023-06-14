@@ -4,22 +4,22 @@ import { useRoutes } from "react-router-dom";
 import "./App.css";
 import { supabase } from "./client";
 import { useEffect, useState } from "react";
-
+import CreatorCard from "./components/CreatorCard";
+import { CreatorType } from "./types/collection";
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [creators, setCreators] = useState<any | null>(null);
+  // const [loading, setLoading] = useState(true);
+  const [creators, setCreators] = useState<CreatorType[]>([]);
 
   const fetchData = async () => {
-        const { data, error } = await supabase.from("creators").select();
-
+    const { data, error } = await supabase.from("creators").select();
 
     if (error) {
       console.log(error);
       return;
-    } else if (data){
+    } else if (data) {
       setCreators(data);
     }
-    setLoading(false);
+    // setLoading(false);
   };
   useEffect(() => {
     fetchData();
@@ -32,7 +32,10 @@ function App() {
         <div>
           Creator stuff
           <div>
-            {creators && console.log(creators)}
+            {creators &&
+              creators.map((creator: CreatorType) => (
+                <CreatorCard key={creator.id} creator={creator} />
+              ))}
           </div>
         </div>
       </div>
