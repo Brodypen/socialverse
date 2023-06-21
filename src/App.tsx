@@ -6,6 +6,8 @@ import { supabase } from "./client";
 import { useEffect, useState } from "react";
 import CreatorCard from "./components/CreatorCard";
 import { CreatorType } from "./types/collection";
+import { Button } from "./components/ui/button";
+
 function App() {
   // const [loading, setLoading] = useState(true);
   const [creators, setCreators] = useState<CreatorType[]>([]);
@@ -27,7 +29,8 @@ function App() {
 
   return (
     <>
-      <div>
+      <Button variant="outline" onClick={() => alert('hello')}>Heyo</Button>
+      <div className="">
         App side
         <div>
           Creator stuff
