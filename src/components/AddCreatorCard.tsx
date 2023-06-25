@@ -1,8 +1,12 @@
+import { useNavigate } from "react-router-dom";
 const AddCreatorCard = () => {
+
+  const navigate = useNavigate();
   return (
     <div className="w-[200px]">
       <div className="overflow-hidden border-2 border-solid rounded-md">
-        <div className="w-[200px] h-[300px] object-cover transition-all hover:scale-110 bg-gradient-to-r to-gray-800  hover:opacity-100 opacity-80 flex justify-center items-center">
+        <button className="w-[200px] h-[300px] object-cover transition-all hover:scale-110 bg-gradient-to-r to-gray-800  hover:opacity-100 opacity-80 flex justify-center items-center" onClick={() => navigate("/add-Creator")}>
+          
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="34"
@@ -19,7 +23,7 @@ const AddCreatorCard = () => {
             <line x1="19" x2="19" y1="8" y2="14" />
             <line x1="22" x2="16" y1="11" y2="11" />
           </svg>
-        </div>
+        </button>
 
         {/* <img
           className={`w-[200px] h-[300px] object-cover transition-all hover:scale-105 bg-gradient-to-r to-gray-800  hover:opacity-100 opacity-80`}

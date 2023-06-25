@@ -41,13 +41,13 @@ const AddCreator = () => {
   });
   const onSubmit = async (info: z.infer<typeof formSchema>, event: any) => {
     event.preventDefault();
-    const {data, error} = await supabase.from('creators').insert([
+    const {error} = await supabase.from('creators').insert([
       {name: info.name, imageURL: info.imageURL, description: info.description, url: info.url}
     ])
     if (error){
       console.log(error)
     }
-    if (data){
+    else {
       navigate('/')
     }
   };
@@ -55,8 +55,9 @@ const AddCreator = () => {
   return (
     <div className="min-h-screen">
       <Header />
+      <Button onClick={() => navigate("/")}>Go back</Button>
 
-      <div>
+      <div className="pt-5">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -114,6 +115,7 @@ const AddCreator = () => {
                 </FormItem>
               )}
             />
+
             <Button type="submit">Submit</Button>
           </form>
         </Form>
