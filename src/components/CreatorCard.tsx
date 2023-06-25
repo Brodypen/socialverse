@@ -1,12 +1,13 @@
 import React from 'react'
 import { CreatorType } from '../types/collection'
 import { Skeleton } from './ui/skeleton';
-
+import {Link} from 'react-router-dom'
 // Credit to shadCn for an amazing collection of UI components
 const CreatorCard = ({creator} : {creator: CreatorType}) => {
   const [loadingContext, setLoadingContext] = React.useState(true);
   return (
     <div className="w-[200px]">
+      <Link to={`/view-creator/${creator.id}`}>
       <div className="overflow-hidden rounded-md">
         {loadingContext && <Skeleton className="w-[200px] h-[300px]" />}
           <img
@@ -18,8 +19,10 @@ const CreatorCard = ({creator} : {creator: CreatorType}) => {
             height="300px"
           />
       </div>
-      <div className="space-y-1 text-sm pt-1">
-        <h3 className="leading-none font-medium text-left">{creator.name}</h3>
+      </Link>
+      <div className="space-y-1 pt-1">
+        <h3 className="leading-none text-left text-lg font-bold line-clamp-1">{creator.name}</h3>
+        <p className="text-left text-xs line-clamp-2">{creator.description}</p>
       </div>
     </div>
   );

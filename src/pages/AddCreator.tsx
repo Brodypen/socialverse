@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../components/Header";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
@@ -39,8 +38,7 @@ const AddCreator = () => {
       url: "",
     },
   });
-  const onSubmit = async (info: z.infer<typeof formSchema>, event: any) => {
-    event.preventDefault();
+  const onSubmit = async (info: z.infer<typeof formSchema>) => {
     const {error} = await supabase.from('creators').insert([
       {name: info.name, imageURL: info.imageURL, description: info.description, url: info.url}
     ])
@@ -97,7 +95,7 @@ const AddCreator = () => {
                   <FormControl>
                     <Input placeholder="https://www.youtube.com/" {...field} />
                   </FormControl>
-                  <FormDescription>Link to any channel!</FormDescription>
+                  <FormDescription>Link to their main platform!</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -109,7 +107,7 @@ const AddCreator = () => {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input placeholder="Youtuber is a x..." {...field} />
+                    <Input placeholder="Creator is a x..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

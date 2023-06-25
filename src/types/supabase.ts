@@ -37,27 +37,27 @@ export interface Database {
       creators: {
         Row: {
           created_at: string | null
-          description: string | null
+          description: string
           id: number
-          imageURL: string | null
-          name: string | null
-          url: string | null
+          imageURL: string
+          name: string
+          url: string
         }
         Insert: {
           created_at?: string | null
-          description?: string | null
+          description: string
           id?: number
-          imageURL?: string | null
-          name?: string | null
-          url?: string | null
+          imageURL: string
+          name: string
+          url: string
         }
         Update: {
           created_at?: string | null
-          description?: string | null
+          description?: string
           id?: number
-          imageURL?: string | null
-          name?: string | null
-          url?: string | null
+          imageURL?: string
+          name?: string
+          url?: string
         }
         Relationships: []
       }
