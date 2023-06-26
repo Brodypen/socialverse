@@ -48,11 +48,17 @@ Describe any challenges encountered while building the app or any additional con
 - This was my first with a lot of technology. Vite, Zod, react-hook-form, and Supabase
 - Main functionality was done in one day under 2-3 hours (Jun 26, 2023), I had a hard time finding time to focus on this during the summer.
 
+Additional Context:
+- There is no RLS policy due to requirements not having Auth. In a better world, there should be Auth.
+- With Auth, I would add more features like rating and "personal" creators scrollbar below the main one
+
+
 What I learned from beginner bugs and bad mistakes include:
 - .env requires "VITE_" before the api keys, etc. Oops
 - Supabase insert/delete/update used to return a data object, but not anymore. This led to issues assuming data object exists.
 - How to properly use a skeleton, you should render this on the client side as loadingContext as relative under the image. Images load bit by bit.
 - React-hook-form "values" are not meant to have values already, to have values already in the input you should be using reset.
+- Zod is amazing
 
 ## License
 
