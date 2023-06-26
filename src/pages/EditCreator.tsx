@@ -41,7 +41,7 @@ const EditCreator = () => {
     if (error) {
       console.log(error);
     } else {
-      navigate("/");
+      navigate(`/view-creator/${id}`);
     }
   };
   const form = useForm<z.infer<typeof formSchema>>({
@@ -63,7 +63,7 @@ const EditCreator = () => {
         .single();
       if (error) {
         // TODO: Handle error, change to 404 page
-        navigate("/");
+        navigate(`/`);
       }
       if (data) {
         form.reset(data);
@@ -75,7 +75,7 @@ const EditCreator = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      <Button onClick={() => navigate("/")}>Go back</Button>
+      <Button onClick={() => navigate(`/view-creator/${id}`)}>Go back</Button>
 
       <div className="pt-5">
         <Form {...form}>

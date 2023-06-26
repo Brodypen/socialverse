@@ -14,6 +14,7 @@ const ViewCreator = () => {
   const [creator, setCreator] = React.useState<CreatorType>();
   const [loadingContext, setLoadingContext] = React.useState(true);
 
+
   const handleDelete = async () => {
     const { error } = await supabase
       .from("creators")
