@@ -8,42 +8,60 @@ import { ScrollArea, ScrollBar } from "./components/ui/scroll-area";
 import AddCreatorCard from "./components/AddCreatorCard";
 import Header from "./components/Header";
 import { Button } from "./components/ui/button";
+import { fakeData } from "./lib/utils/fakeData";
 
 function App() {
   // const [loading, setLoading] = useState(true);
   const [creators, setCreators] = useState<CreatorType[]>([]);
   const [orderBy, setOrderBy] = useState("created_at");
-  const [ascender, setAscender] = useState(false);
+  const [ascender, setAscender] = useState<boolean>(false);
+  const [fakeDataInsert, setFakeDataInsert] = useState(false);
 
   useEffect(() => {
+
     const fetchData = async () => {
-      
+      // Type issue, can't figure it out but ascender should always be a boolean.
       const { data, error } = await supabase
         .from("creators")
         .select()
-        .order(orderBy, {ascending: ascender});
+        .order(orderBy, { ascending: ascender });
       
 
       if (error) {
         console.log(error);
         return;
       } else if (data) {
-        setCreators(data.reverse());
+        setCreators(data);
       }
       // setLoading(false);
     };
     fetchData();
-  }, [orderBy, ascender]);
+  }, [orderBy, ascender, fakeDataInsert]);
+
+        const fillFakeData = async () => {
+          const {  error } = await supabase
+
+            .from("creators")
+            .insert(fakeData[0].map((creator) => creator));
+          if (error) {
+            console.log(error);
+          } else {
+            setFakeDataInsert((prev) => !prev);
+          }
+        };
+
+
+
 
   return (
     <div className="min-h-screen">
       <Header />
       <div className="">
         <div>
-          <div className="flex items-center justify-between">
+          <div className="text-left">
             <div className="space-y-1">
               <h2 className="text-2xl font-semibold tracking-tight">
-                Your favorite creators
+                Your favorite Youtube Creators
               </h2>
               <p className="text-sm text-muted-foreground">
                 From anywhere and everywhere
@@ -86,6 +104,7 @@ function App() {
           </div>
         </div>
       </div>
+      <Button onClick={fillFakeData}>Insert fake data</Button>
     </div>
   );
 }
