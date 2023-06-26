@@ -24,7 +24,7 @@ function App() {
       const { data, error } = await supabase
         .from("creators")
         .select()
-        .order(orderBy, { ascending: ascender });
+        .order(orderBy, { ascending: ascender, nullsFirst: undefined, foreignTable: ""});
       
 
       if (error) {

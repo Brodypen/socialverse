@@ -51,8 +51,8 @@ const ViewCreator = () => {
       <Header />
       <Button onClick={() => navigate("/")}>Go back</Button>
 
-      <div className="flex col justify-center pt-5">
-        <div className="overflow-hidden rounded-md">
+      <div className="flex col justify-center pt-5 min-w-fit">
+        <div className="min-w-[200px] min-h-0 overflow-hidden rounded-md">
           {loadingContext && <Skeleton className="w-[300px] h-[450px]" />}
           {creator && (
             <img
