@@ -1,14 +1,18 @@
-import React from 'react'
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { supabase } from "../client";
-import { CreatorType } from '../types/collection';
-import Header from '../components/Header';
-import { Button } from '../components/ui/button';
+import { CreatorType } from "../types/collection";
+import Header from "../components/Header";
+import { Button } from "../components/ui/button";
+import { Skeleton } from "../components/ui/skeleton";
+import { Youtube, UserCog, UserX, UserMinus } from "lucide-react";
+
 const ViewCreator = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [creator, setCreator] = React.useState<CreatorType>();
+  const [loadingContext, setLoadingContext] = React.useState(true);
 
   useEffect(() => {
     const fetchCreator = async () => {
@@ -32,10 +36,55 @@ const ViewCreator = () => {
     <div>
       <Header />
       <Button onClick={() => navigate("/")}>Go back</Button>
-      
-      ViewCreator - {id} - {creator?.name}
+
+      <div className="flex col justify-center pt-5">
+        <div className="overflow-hidden rounded-md">
+          {loadingContext && <Skeleton className="w-[300px] h-[450px]" />}
+          {creator && (
+            <img
+              onLoad={() => setLoadingContext(false)}
+              className={`${
+                loadingContext ? "hidden" : ""
+              } w-[300px] h-[450px] object-cover`}
+              src={
+                creator.imageURL
+                  ? creator.imageURL
+                  : "https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
+              }
+              alt={creator.name ? creator.name : "creator"}
+              width="300px"
+              height="450px"
+            />
+          )}
+        </div>
+        <div className="pl-5">
+          <h1 className="text-2xl">
+            {creator ? `${creator.name}` : "Name loading"}
+          </h1>
+          <p className="pt-2 text-sm overflow-hidden text-ellipsis max-w-xs max-h-[450px]">
+            {creator ? `${creator.description}` : "Description loading"}
+          </p>
+          <div className="flex justify-center gap-5 pt-3">
+            <a
+              className=""
+              href={creator ? creator.url : ""}
+              target="_blank"
+            >
+              <Button>
+                <Youtube />
+              </Button>
+            </a>
+            <Button onClick={() => navigate(`/edit-creator/${id}`)}>
+              <UserCog />
+            </Button>
+            <Button>
+              <UserX />
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default ViewCreator
+export default ViewCreator;
