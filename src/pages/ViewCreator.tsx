@@ -30,14 +30,14 @@ const ViewCreator = () => {
   const [creator, setCreator] = useState<CreatorType>();
 
   const onSubmit = async (info: z.infer<typeof formSchema>) => {
-    const { error } = await supabase.from("creators").insert([
+    const { data, error } = await supabase.from("creators").update(
       {
         name: info.name,
         imageURL: info.imageURL,
         description: info.description,
         url: info.url,
-      },
-    ]);
+      }).eq("id", id)
+
     if (error) {
       console.log(error);
     } else {
@@ -59,27 +59,20 @@ const ViewCreator = () => {
       const { data, error } = await supabase
         .from("creators")
         .select()
-        .eq("id", id);
+        .eq("id", id).single();
       if (error) {
         // TODO: Handle error, change to 404 page
         navigate("/");
       }
       if (data) {
         // console.log(data)
-        setCreator(data[0]);
-      }
-    };
-    const setFormValues = () => {
-      if (creator) {
-        form.setValue("name", creator.name);
-        form.setValue("imageURL", creator.imageURL);
-        form.setValue("description", creator.description);
-        form.setValue("url", creator.url);
+        setCreator(data);
+        form.reset(data);
       }
     };
     fetchCreator();
-    setFormValues();
-  }, [creator, form, id, navigate]);
+    console.log("fetched again?")
+  }, [id, navigate]);
 
 
 
