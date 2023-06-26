@@ -6,13 +6,26 @@ import { CreatorType } from "../types/collection";
 import Header from "../components/Header";
 import { Button } from "../components/ui/button";
 import { Skeleton } from "../components/ui/skeleton";
-import { Youtube, UserCog, UserX, UserMinus } from "lucide-react";
+import { Youtube, UserCog, UserX } from "lucide-react";
 
 const ViewCreator = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [creator, setCreator] = React.useState<CreatorType>();
   const [loadingContext, setLoadingContext] = React.useState(true);
+
+  const handleDelete = async () => {
+    const { error } = await supabase
+      .from("creators")
+      .delete()
+      .eq("id", id)
+      .select();
+    if (error) {
+      console.log(error);
+    } else {
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
     const fetchCreator = async () => {
@@ -65,11 +78,7 @@ const ViewCreator = () => {
             {creator ? `${creator.description}` : "Description loading"}
           </p>
           <div className="flex justify-center gap-5 pt-3">
-            <a
-              className=""
-              href={creator ? creator.url : ""}
-              target="_blank"
-            >
+            <a className="" href={creator ? creator.url : ""} target="_blank">
               <Button>
                 <Youtube />
               </Button>
@@ -77,7 +86,7 @@ const ViewCreator = () => {
             <Button onClick={() => navigate(`/edit-creator/${id}`)}>
               <UserCog />
             </Button>
-            <Button>
+            <Button onClick={handleDelete}>
               <UserX />
             </Button>
           </div>

@@ -1,6 +1,3 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import { useRoutes } from "react-router-dom";
 import "./App.css";
 import { supabase } from "./client";
 import { useEffect, useState } from "react";
@@ -29,6 +26,7 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
+
 
   return (
     <div className="min-h-screen">
@@ -62,6 +60,7 @@ function App() {
           </div>
         </div>
       </div>
+
     </div>
   );
 }
